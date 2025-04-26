@@ -1,24 +1,24 @@
 #!/bin/bash
 # Check and install dos2unix if needed
-if ! command -v dos2unix >/dev/null 2>&1; then
-    echo "[INFO] dos2unix not found. Attempting to install..."
-    if command -v apt >/dev/null 2>&1; then
-        sudo apt update && sudo apt install -y dos2unix
-    elif command -v apt >/dev/null 2>&1; then
-        sudo yum install -y dos2unix
-    elif command -v dnf >/dev/null 2>&1; then
-        sudo dnf install -y dos2unix
-    elif command -v pacman >/dev/null 2>&1; then
-        sudo pacman -Sy dos2unix --noconfirm
-    else
-        echo "[ERROR] No supported package manager found. Please install dos2unix manually."
-        exit 1
-    fi
+#!/bin/bash
+
+# --- Color setup ---
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+NC="\033[0m" # No Color
+
+# --- Anti-CRLF fixer ---
+if grep -q $'\r' "$0"; then
+    echo -e "${YELLOW}[WARNING] Detected Windows line endings (CRLF). Fixing temporarily...${NC}"
+    tr -d '\r' < "$0" | bash
+    exit $?
+else
+    echo -e "${GREEN}[OK] Line endings are fine. Continuing execution...${NC}"
 fi
 
-# Convert the script itself to Unix format
-echo "[INFO] Converting script to Unix format (LF)..."
-dos2unix "$0"
+# --- Your script continues normally from here ---
+echo -e "${GREEN}[INFO] Script is now running normally...${NC}"
 
 # Check server country using ip-api
 echo "Checking server location..."
