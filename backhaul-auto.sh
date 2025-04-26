@@ -4,7 +4,7 @@ if ! command -v dos2unix >/dev/null 2>&1; then
     echo "[INFO] dos2unix not found. Attempting to install..."
     if command -v apt >/dev/null 2>&1; then
         sudo apt update && sudo apt install -y dos2unix
-    elif command -v yum >/dev/null 2>&1; then
+    elif command -v apt >/dev/null 2>&1; then
         sudo yum install -y dos2unix
     elif command -v dnf >/dev/null 2>&1; then
         sudo dnf install -y dos2unix
