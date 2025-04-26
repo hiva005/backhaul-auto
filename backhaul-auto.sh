@@ -42,7 +42,7 @@ EOF
 
 # If server is outside Iran
 else
-    echo -e "\033[31mPlease enter the IP Iran\033[0m"
+    echo -e "\033[31mPlease enter the IP address of the external server\033[0m"
     # Get the server IP from the user
     read -p "Server IP: " SERVER_IP
     cat > $CONFIG_PATH <<EOF
