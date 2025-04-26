@@ -1,5 +1,18 @@
 #!/bin/bash
+if ! command -v dos2unix >/dev/null 2>&1; then
+    echo "dos2unix not found. Trying to install it..."
+    if command -v apt >/dev/null 2>&1; then
+        sudo apt update && sudo apt install -y dos2unix
+    elif command -v yum >/dev/null 2>&1; then
+        sudo yum install -y dos2unix
+    else
+        echo "Package manager not found. Please install dos2unix manually."
+        exit 1
+    fi
+fi
 
+echo "Converting script to Unix format (LF)..."
+dos2unix "$0"
 # Check server country using ip-api
 echo "Checking server location..."
 COUNTRY=$(curl -s http://ip-api.com/json | jq -r .country)
